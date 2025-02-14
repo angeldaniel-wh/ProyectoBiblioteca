@@ -1,0 +1,84 @@
+{% extends 'nav/nav.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Titulo</td>
+                        <td>Autores</td>
+                        <td>libro</td>
+                        <td>Fecha de publicación</td>
+                        <td>Portada</td>
+                    </tr>
+                </thead>
+                    <tbody>
+                        {% if object_list %}
+                            {% for libro in object_list %}
+                                <tr>
+                                    <td>{{ libro.id }}</td>
+                                    <td>{{ libro.titulo }}</td>
+                                    <td>
+                                        {% for autor in libro.autores.all %}
+                                            {{ autor }}
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ libro.editor }}</td>
+                                    <td>{{ libro.fecha_publicacion }}</td>
+<!--                                    <td>{{ libro.portada }}</td>-->
+                                    {% if libro.portada %}
+                                        <td>
+                                            <a href="{% url 'biblioteca:class_libro_editar' libro.id %}" > <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}" width="100"> </a>
+                                        </td>
+                                    {% else %}
+                                        <td> No hay imagen disponible </td>
+                                    {% endif %}
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'biblioteca:class_libro_editar' libro.id %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'biblioteca:class_libro_eliminar' libro.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% elif libros %}
+                            {% for libro in libros %}
+                                <tr>
+                                    <td>{{ libro.id }}</td>
+                                    <td>{{ libro.titulo }}</td>
+                                    <td>
+
+                                        {% for autor in libro.autores.all %}
+                                            {{ autor }}
+                                            <br>
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ libro.editor }}</td>
+                                    <td>{{ libro.fecha_publicacion }}</td>
+                                    {% if libro.portada %}
+                                        <td>
+                                            <a href="{% url 'biblioteca:class_libro_editar' libro.id %}" > <img src="{{ libro.portada.url }}" alt="{{ libro.titulo }}" width="100"> </a>
+                                        </td>
+                                    {% else %}
+                                        <td> No hay imagen disponible </td>
+                                    {% endif %}
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'biblioteca:class_libro_editar' libro.id %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'biblioteca:class_libro_eliminar' libro.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="7">
+                                <h1>No hay registros de libros</h1>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

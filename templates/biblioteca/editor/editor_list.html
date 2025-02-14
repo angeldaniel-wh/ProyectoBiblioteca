@@ -1,0 +1,64 @@
+{% extends 'nav/nav.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Nombre</td>
+                        <td>Domicilio</td>
+                        <td>Ciudad</td>
+                        <td>Estado</td>
+                        <td>País</td>
+                        <td>Website</td>
+                    </tr>
+                </thead>
+                    <tbody>
+                        {% if object_list %}
+                            {% for editor in object_list %}
+                                <tr>
+                                    <td>{{ editor.id }}</td>
+                                    <td>{{ editor.nombre }}</td>
+                                    <td>{{ editor.domicilio }}</td>
+                                    <td>{{ editor.ciudad }}</td>
+                                    <td>{{ editor.estado }}</td>
+                                    <td>{{ editor.pais }}</td>
+                                    <td>{{ editor.website }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'biblioteca:class_editor_editar' editor.id %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'biblioteca:class_editor_eliminar' editor.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% elif editores %}
+                            {% for editor in editores %}
+                                <tr>
+                                    <td>{{ editor.id }}</td>
+                                    <td>{{ editor.nombre }}</td>
+                                    <td>{{ editor.domicilio }}</td>
+                                    <td>{{ editor.ciudad }}</td>
+                                    <td>{{ editor.estado }}</td>
+                                    <td>{{ editor.pais }}</td>
+                                    <td>{{ editor.website }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'biblioteca:class_editor_editar' editor.id %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'biblioteca:class_editor_eliminar' editor.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}||
+                        {% else %}
+                            <tr>
+                                <td colspan="7">
+                                <h1>No hay registros de editores</h1>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

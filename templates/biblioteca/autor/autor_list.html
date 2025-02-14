@@ -1,0 +1,55 @@
+{% extends 'nav/nav.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>Nombre</td>
+                        <td>Apellidos</td>
+                        <td>E-mail</td>
+                    </tr>
+                </thead>
+                    <tbody>
+                        {% if object_list %}
+                            {% for autor in object_list %}
+                                <tr>
+                                    <td>{{ autor.id }}</td>
+                                    <td>{{ autor.nombre }}</td>
+                                    <td>{{ autor.apellidos }}</td>
+                                    <td>{{ autor.email }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'biblioteca:class_autor_editar' autor.id %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'biblioteca:class_autor_eliminar' autor.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% elif autores %}
+                            {% for autor in autores %}
+                                <tr>
+                                    <td>{{ autor.id }}</td>
+                                    <td>{{ autor.nombre }}</td>
+                                    <td>{{ autor.apellidos }}</td>
+                                    <td>{{ autor.email }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'biblioteca:function_autor_editar' autor.id %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'biblioteca:function_autor_eliminar' autor.id %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="7">
+                                <h1>No hay registros de autores</h1>
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+{% endblock %}

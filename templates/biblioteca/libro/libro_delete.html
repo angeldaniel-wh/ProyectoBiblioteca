@@ -1,0 +1,19 @@
+{% extends 'nav/nav.html' %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% if object %}
+            <h3> Desea eliminar el registro de {{ object.titulo }}?</h3>
+            <a class="btn btn-default" href="{% url 'biblioteca:class_libro_listar' %}"> Cancelar</a>
+        {% else %}
+            <h3> Desea eliminar el registro de {{ libro.titulo }}?</h3>
+            <a class="btn btn-default" href="{% url 'biblioteca:function_libro_listar' %}"> Cancelar</a>
+        {% endif %}
+        <button class="btn btn-danger" type="submit">Sí, eliminar</button>
+
+    </form>
+
+{%  endblock %}
